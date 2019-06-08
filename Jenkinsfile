@@ -15,6 +15,7 @@ pipeline {
              touch abc
              ls -al
              pwd
+             hostname -f
         '''
       }
     }
