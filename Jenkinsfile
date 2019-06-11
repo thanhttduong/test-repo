@@ -1,23 +1,20 @@
 pipeline {
-  agent {
-    dockerfile true
-//   docker {
-//     image 'centos'
-//   }
-  }
-  triggers{ cron('H/30 * * * *') }
-  stages {
-    stage('') {
-      steps {
-        sh 'uptime'
-        sh '''
-             echo "hello world"
-             touch abc
-             ls -al
-             pwd
-             hostname -f
-        '''
-      }
+    agent none
+    stages {
+        stage('Example Build') {
+            agent { dockerfile true }
+            steps {
+                echo 'Hello World'
+                sh 'pwd'
+            }
+        }
+        stage('Example Deploy') {
+            when {
+                triggeredBy "TimerTrigger"
+            }
+            steps {
+                echo 'Deploying'
+            }
+        }
     }
-  }
 }
